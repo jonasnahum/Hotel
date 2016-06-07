@@ -1,25 +1,5 @@
 <div ng-controller="registroController as ctrl">
   <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()"novalidate>
-    <!--
-          Fecha de Entrada: <input type="text" name="fechaEntrada" ng-model="ctrl.fechaEntrada" id="fechaEntrada" required/>
-          Fecha de Salida: <input type="text" name="fechaSalida" ng-model="ctrl.fechaSalida" id="fechaSalida" required/>
-
-          Elegir el tipo de viaje :
-           <div class="radio">
-               <label>
-                   <input type="radio" value="placer" name="placer" ng-model="ctrl.placer" required>
-                   Placer
-               </label>
-           </div>
-           <div class="radio">
-               <label>
-                   <input type="radio" value="negocios" ng-model="ctrl.negocios" required>
-                   negocios
-               </label>
-           </div>
-
-           <input class="btn btn-lg btn-success" role="button" type="submit" value="Guardar Registro" />
-         -->
          Nombre del cliente : <input type="text"  ng-model="ctrl.cliente">
          Fecha de Entrada: <input type="text" name="fechaEntrada" ng-model="ctrl.fechaEntrada" id="fechaEntrada" />
          Fecha de Salida: <input type="text" name="fechaSalida" ng-model="ctrl.fechaSalida" id="fechaSalida" />
@@ -31,8 +11,9 @@
          <input class="btn btn-lg btn-success" role="button" type="submit" value="Guardar Registro" />
 
   </form>
+RESERVACIONES
 {{ctrl.registros}}
 <br>
 <br>
-{{ctrl.inventario}}
+{{ctrl.inventario.inventario}}
 </div>
