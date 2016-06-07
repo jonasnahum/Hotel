@@ -24,9 +24,15 @@
          Fecha de Entrada: <input type="text" name="fechaEntrada" ng-model="ctrl.fechaEntrada" id="fechaEntrada" />
          Fecha de Salida: <input type="text" name="fechaSalida" ng-model="ctrl.fechaSalida" id="fechaSalida" />
          Motivo del viaje : <input type="text"  ng-model="ctrl.motivo">
-
+         No de habitación : <input type="number"  ng-model="ctrl.habitacion">
+         Tipo de habitación : <input type="text"  ng-model="ctrl.tipo">
+         No de adultos : <input type="number"  ng-model="ctrl.adultos">
+         No de niños : <input type="number"  ng-model="ctrl.ninos">
          <input class="btn btn-lg btn-success" role="button" type="submit" value="Guardar Registro" />
 
   </form>
 {{ctrl.registros}}
+<br>
+<br>
+{{ctrl.inventario}}
 </div>
