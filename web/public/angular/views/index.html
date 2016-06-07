@@ -1,19 +1,63 @@
-<div ng-controller="registroController as ctrl">
-  <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()"novalidate>
-         Nombre del cliente : <input type="text"  ng-model="ctrl.cliente">
-         Fecha de Entrada: <input type="text" name="fechaEntrada" ng-model="ctrl.fechaEntrada" id="fechaEntrada" />
-         Fecha de Salida: <input type="text" name="fechaSalida" ng-model="ctrl.fechaSalida" id="fechaSalida" />
-         Motivo del viaje : <input type="text"  ng-model="ctrl.motivo">
-         No de habitación : <input type="number"  ng-model="ctrl.habitacion">
-         Tipo de habitación : <input type="text"  ng-model="ctrl.tipo">
-         No de adultos : <input type="number"  ng-model="ctrl.adultos">
-         No de niños : <input type="number"  ng-model="ctrl.ninos">
-         <input class="btn btn-lg btn-success" role="button" type="submit" value="Guardar Registro" />
+<div class="container" ng-controller="registroController as ctrl">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Registrar huesped</h1>
+      <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()" style="width: 50%">
+             <br>
+             Nombre del cliente : <input type="text"  ng-model="ctrl.cliente">
+             <br>
+             <br>
+             Fecha de Entrada: <input type="text" name="fechaEntrada" ng-model="ctrl.fechaEntrada" id="fechaEntrada" />
+             <br>
+             Fecha de Salida: <input type="text" name="fechaSalida" ng-model="ctrl.fechaSalida" id="fechaSalida" />
+             <br>
+             <br>
+             Motivo del viaje:
+              <select name="singleSelect" ng-model="ctrl.motivo">
+                <option value="placer">placer</option>
+                <option value="negocios">negocios</option>
+              </select>
+             <br>
+             <br>
+             No de habitación : <input type="number"  ng-model="ctrl.habitacion" ng-maxlength=2 style="width:20%;">
+             <br>
+             <br>
+             Tipo de habitación :
+             <br/>
+                 <input type="radio" ng-model="ctrl.tipo" value="sencilla">
+                 Sencilla
+                 <input type="radio" ng-model="ctrl.tipo" value="doble">
+                 Doble
+             <br/>
+             <br>
 
-  </form>
-RESERVACIONES
-{{ctrl.registros}}
-<br>
-<br>
-{{ctrl.inventario.inventario}}
-</div>
+             Adultos :
+             <input type="number"  ng-model="ctrl.adultos" style="width:20%;">
+
+             Niños :
+             <input type="number"  ng-model="ctrl.ninos" style="width:20%;">
+             <br>
+             <br>
+             <br>
+             <input class="btn btn-lg btn-success" role="button" type="submit" value="Reservar habitacion"  />
+
+      </form>
+    </div>
+    <div class="col-md-3">
+      <h1>Habitaciones reservadas</h1>
+      <ol class="list-group">
+        <li ng-repeat="registro in ctrl.registros" class="list-group-item" style="color: black;">
+            <p>{{registro.habitacion}}</p>
+        </li>
+      </ol>
+    </div>
+    <div class="col-md-3">
+      <h1>Habitaciones disponibles</h1>
+      <ol class="list-group">
+        <li ng-repeat="hab in ctrl.inventario.inventario" class="list-group-item" style="color: black;">
+            <p>no. habitacion: {{hab.habitacion}}  tipo : {{hab.tipo}}</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+  </div>
