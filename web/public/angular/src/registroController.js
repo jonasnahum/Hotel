@@ -11,7 +11,7 @@
         ctrl.fechaSalida = '';
         ctrl.cliente = '';
         ctrl.motivo = '';
-        ctrl.habitacion = 0;
+        ctrl.habitaciones = 0;
         ctrl.tipo = '';
         ctrl.adultos = 0;
         ctrl.ninos = 0;
@@ -21,7 +21,7 @@
           ctrl.fechaSalida = '';
           ctrl.cliente = '';
           ctrl.motivo = '';
-          ctrl.habitacion = 0;
+          ctrl.habitaciones = 0;
           ctrl.tipo = '';
           ctrl.adultos = 0;
           ctrl.ninos = 0;
@@ -33,13 +33,15 @@
               motivo:ctrl.motivo,
               fechaEntrada:ctrl.fechaEntrada,
               fechaSalida:ctrl.fechaSalida,
-              habitacion:ctrl.habitacion,
+              habitaciones:ctrl.habitaciones,
               tipo:ctrl.tipo,
               adultos:ctrl.adultos,
               ninos:ctrl.ninos
             };
-            ctrl.inventario.removeRoomFromInventario(model);
-            ctrl.registros.push(model);
+            var reservadas = ctrl.inventario.crearUnArraydeHabitacionesReservadas(model.habitaciones,model.tipo);
+            ctrl.inventario.removeElementsFromInventarioWithArr(reservadas);
+
+            ctrl.registros.push(reservadas);
             ctrl.clearProps();
         };
         $(function() {

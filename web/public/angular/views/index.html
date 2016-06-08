@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-6">
       <h1>Registrar huesped</h1>
-      <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()" style="width: 50%">
+      <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()" >
              <br>
              Nombre del cliente : <input type="text"  ng-model="ctrl.cliente">
              <br>
@@ -20,7 +20,7 @@
               </select>
              <br>
              <br>
-             No de habitación : <input type="number"  ng-model="ctrl.habitacion" ng-maxlength=2 style="width:20%;">
+             ¿Cuántas habitaciones desea reservar? : <input type="number"  ng-model="ctrl.habitaciones" ng-maxlength=2 style="width:20%;">
              <br>
              <br>
              Tipo de habitación :
@@ -48,7 +48,7 @@
       <h1>Habitaciones reservadas</h1>
       <ol class="list-group">
         <li ng-repeat="registro in ctrl.registros" class="list-group-item" style="color: black;">
-            <p>{{registro.habitacion}}</p>
+            <p>{{registro}}</p>
         </li>
       </ol>
     </div>
