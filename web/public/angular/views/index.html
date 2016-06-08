@@ -20,7 +20,7 @@
               </select>
              <br>
              <br>
-             ¿Cuántas habitaciones desea reservar? : <input type="number"  ng-model="ctrl.habitaciones" ng-maxlength=2 style="width:20%;">
+             ¿Cuántas habitaciones desea reservar? : <input type="number"  ng-model="ctrl.habitaciones" min="1" max="{{ctrl.maxHab()}}"  style="width:20%;">
              <br>
              <br>
              Tipo de habitación :
@@ -33,10 +33,10 @@
              <br>
 
              Adultos :
-             <input type="number"  ng-model="ctrl.adultos" style="width:20%;">
+             <input type="number"  ng-model="ctrl.adultos" style="width:20%;" min="1" max="20">
 
              Niños :
-             <input type="number"  ng-model="ctrl.ninos" style="width:20%;">
+             <input type="number"  ng-model="ctrl.ninos" style="width:20%;" max="20">
              <br>
              <br>
              <br>
@@ -56,7 +56,7 @@
       <h1>Habitaciones disponibles</h1>
       <ol class="list-group">
         <li ng-repeat="hab in ctrl.inventario.inventario" class="list-group-item" style="color: black;">
-            <p>no. habitacion: {{hab.habitacion}}  tipo : {{hab.tipo}}</p>
+            <p>no. : {{hab.habitacion}}  tipo : {{hab.tipo}}</p>
         </li>
       </ol>
     </div>
