@@ -26,9 +26,17 @@
           ctrl.adultos = 1;
           ctrl.ninos = 0;
         };
-        ctrl._agregarUnRegistro = function(seleccionadas){
-          if(seleccionadas.length){
-            ctrl.registros.push(seleccionadas);
+        ctrl._agregarObjetoReservacionACadaHabitacion = function(arr, entrada, salida){
+          var reservadas = arr;
+          var obj = { fechaEntrada: entrada, fechaSalida: salida};
+          for (var i = 0; i < reservadas.length; i++) {
+            reservadas[i].reservaciones=obj;
+          }
+          return reservadas;
+        };
+        ctrl._agregarUnRegistro = function(reservadas){
+          if(reservadas.length){
+            ctrl.registros.push(reservadas);
             return;
           }else{
             alert("No hay habitaciones disponibles");
@@ -61,7 +69,8 @@
             };
             var seleccionadas = ctrl.inventario.seleccionarHabitacionesDeInventario(model.habitaciones,model.tipo);
             ctrl.inventario.removeElementsFromInventarioWithArr(seleccionadas);
-            ctrl._agregarUnRegistro(seleccionadas);
+            var reservadas = ctrl._agregarObjetoReservacionACadaHabitacion(seleccionadas, model.fechaEntrada, model.fechaSalida);
+            ctrl._agregarUnRegistro(reservadas);
             ctrl.clearProps();
         };
         $(function() {

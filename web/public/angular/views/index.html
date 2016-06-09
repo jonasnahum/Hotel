@@ -1,7 +1,7 @@
 
 <div class="container" ng-controller="registroController as ctrl">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h1>Registrar huesped</h1>
       <form class="css-form" name="frmReg" ng-submit="ctrl.guardar()" >
              <br>
@@ -44,7 +44,7 @@
 
       </form>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
       <h1>Habitaciones reservadas</h1>
       <ol class="list-group">
         <li ng-repeat="registro in ctrl.registros" class="list-group-item" style="color: black;">
@@ -52,11 +52,11 @@
         </li>
       </ol>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <h1>Habitaciones disponibles</h1>
       <ol class="list-group">
         <li ng-repeat="hab in ctrl.inventario.inventario" class="list-group-item" style="color: black;">
-            <p>no. : {{hab.habitacion}}  tipo : {{hab.tipo}}</p>
+            <p>no. : {{hab.habitacion}}  tipo : {{hab.tipo}} {{hab.reservaciones}}</p>
         </li>
       </ol>
     </div>
