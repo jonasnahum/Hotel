@@ -121,7 +121,9 @@
 
           var contador = 0;
           for (var i = 0; i < that.inventario.length; i++) {
-            if(that.inventario[i].tipo === tipo && contador < cuantas){
+            //si la habitacion del inventario es del tipo deseado , y esta disponible, agregar las deseadas.
+            var habitacion = that.inventario[i];
+            if(habitacion.tipo === tipo && contador < cuantas && that._checkarDisponibilidadFechaEntradaDeseada(habitacion,reservacion.fechaEntrada) && that._checkarDisponibilidadFechaSalidaDeseada(habitacion,reservacion.fechaSalida)){
               that.inventario[i].reservaciones.push(reservacion);
               contador ++;
             }
