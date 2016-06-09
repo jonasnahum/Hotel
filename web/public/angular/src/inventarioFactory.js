@@ -19,7 +19,7 @@
               {habitacion:13,tipo:"doble", reservaciones: []}
             ];
         };
-
+/*
         InventarioClass.prototype.findByRoom = function(habitacion){
             var that = this;
             var found = undefined;
@@ -50,19 +50,83 @@
           };
           return contadorBorradas;
         };
-
-        InventarioClass.prototype.seleccionarHabitacionesDeInventario = function(cuantas, tipo){
+*/
+        InventarioClass.prototype._checkarDisponibilidadFechaEntradaDeseada = function (habitacion,fechaEntrada) {
           var that = this;
-          var contador = 0;
-          var seleccionadas = [];
+          var disponible = true;
+          for (var i = 0; i < habitacion.reservaciones.length; i++) {
+            //la fecha de entrada deseada se encuentra dentro de algun periodo reservado de la habitacioin?.
+            if(fechaEntrada >= habitacion.reservaciones[i].fechaEntrada && fechaEntrada <= habitacion.reservaciones[i].fechaSalida){
+              //se encuentra en periodo reservado, así que false, porque no está disponible.
+              disponible = false;
+              return disponible;
+            }
+          }
+          return disponible;
+        };
+        InventarioClass.prototype._checkarDisponibilidadFechaSalidaDeseada = function (habitacion,fechaSalida) {
+          var that = this;
+          var disponible = true;
+          for (var i = 0; i < habitacion.reservaciones.length; i++) {
+            //la fecha de entrada deseada se encuentra dentro de algun periodo reservado de la habitacioin?.
+            if(fechaSalida >= habitacion.reservaciones[i].fechaEntrada && fechaSalida <= habitacion.reservaciones[i].fechaSalida){
+              //se encuentra en periodo reservado, así que false, porque no está disponible.
+              disponible = false;
+              return disponible;
+            }
+          }
+          return disponible;
+        };
 
+        InventarioClass.prototype._sonIguales = function (entrada, salida) {
+          var that = this;
+          if(entrada === true && salida === true){
+            return true
+          }
+          return false;
+        };
+
+        InventarioClass.prototype.checkarDisponibilidad = function(model){
+          var that = this;
+          var fechasDeseadas = {fechaEntrada: model.fechaEntrada, fechaSalida: model.fechaSalida};
+          var cuantasQuieren = model.habitaciones;
+          var tipo = model.tipo;
+
+          var habitacionesDisponibles = 0;
+          var contador = 0;
+          for (var i = 0; i < that.inventario.length; i++) {
+            if(that.inventario[i].tipo === tipo ) { //&& contador < cuantasQuieren){
+              //cada habitacion del inventario filtrada por tipo y cantidad deseadas.
+              var habitacion = that.inventario[i];
+              var entradaDisponible = that._checkarDisponibilidadFechaEntradaDeseada(habitacion,fechasDeseadas.fechaEntrada);
+              var salidaDisponible = that._checkarDisponibilidadFechaSalidaDeseada(habitacion,fechasDeseadas.fechaSalida);
+              if(entradaDisponible === true && salidaDisponible === true){
+                habitacionesDisponibles ++;
+              }
+            //  contador ++;
+            }
+          }
+
+          if(habitacionesDisponibles >= cuantasQuieren){
+            return true;
+          }
+          return false;
+        };
+
+        InventarioClass.prototype.guardarRegistroEnInventario = function(model){
+          var that = this;
+          var reservacion = {fechaEntrada: model.fechaEntrada, fechaSalida: model.fechaSalida};
+          var cuantas = model.habitaciones;
+          var tipo = model.tipo;
+
+          var contador = 0;
           for (var i = 0; i < that.inventario.length; i++) {
             if(that.inventario[i].tipo === tipo && contador < cuantas){
-              seleccionadas.push(that.inventario[i]);
+              that.inventario[i].reservaciones.push(reservacion);
               contador ++;
             }
           }
-          return seleccionadas;
+          return;
         };
 
         return function() {

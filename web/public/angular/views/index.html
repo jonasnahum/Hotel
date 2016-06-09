@@ -1,4 +1,3 @@
-
 <div class="container" ng-controller="registroController as ctrl">
   <div class="row">
     <div class="col-md-4">
@@ -44,16 +43,8 @@
 
       </form>
     </div>
-    <div class="col-md-6">
-      <h1>Habitaciones reservadas</h1>
-      <ol class="list-group">
-        <li ng-repeat="registro in ctrl.registros" class="list-group-item" style="color: black;">
-            <p>{{registro}}</p>
-        </li>
-      </ol>
-    </div>
-    <div class="col-md-2">
-      <h1>Habitaciones disponibles</h1>
+    <div class="col-md-8">
+      <h1>Habitaciones</h1>
       <ol class="list-group">
         <li ng-repeat="hab in ctrl.inventario.inventario" class="list-group-item" style="color: black;">
             <p>no. : {{hab.habitacion}}  tipo : {{hab.tipo}} {{hab.reservaciones}}</p>
