@@ -42,7 +42,7 @@
 
         ctrl.guardar = function() {
             var model = ctrl.model;
-            var result = ctrl.inventario.checkarDisponibilidad(model);
+            var result = ctrl.inventario.checkarDisponibilidadDeHabitaciones(model);
             if(result === false){
               alert("habitaciones no disponibles");
               return;

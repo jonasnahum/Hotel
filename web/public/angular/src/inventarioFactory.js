@@ -54,25 +54,27 @@
           return false;
         };
 
-        InventarioClass.prototype.checkarDisponibilidad = function(model){
+        InventarioClass.prototype._conseguirArrHabitacionesDisponiblesSegunTipo = function (model){
           var that = this;
-          var fechasDeseadas = {fechaEntrada: model.fechaEntrada, fechaSalida: model.fechaSalida};
-          var cuantasQuieren = model.habitaciones;
-          var tipo = model.tipo;
-
-          var habitacionesDisponibles = 0;
+          var arr = [];
           for (var i = 0; i < that.inventario.length; i++) {
-            if(that.inventario[i].tipo === tipo ) {
-              //cada habitacion del inventario filtrada por tipo, aunque puede estar o no ocupada.
-              var habitacion = that.inventario[i];
-              var entradaDisponible = that._checkarDisponibilidadFechaEntradaDeseada(habitacion,fechasDeseadas.fechaEntrada);
-              var salidaDisponible = that._checkarDisponibilidadFechaSalidaDeseada(habitacion,fechasDeseadas.fechaSalida);
+            if(that.inventario[i].tipo === model.tipo ) {
+              var entradaDisponible = that._checkarDisponibilidadFechaEntradaDeseada(that.inventario[i],model.fechaEntrada);
+              var salidaDisponible = that._checkarDisponibilidadFechaSalidaDeseada(that.inventario[i],model.fechaSalida);
               if(entradaDisponible === true && salidaDisponible === true){
-                habitacionesDisponibles ++;
+                arr.push(that.inventario[i]);
               }
             }
           }
-          if(habitacionesDisponibles >= cuantasQuieren){
+          return arr;
+        };
+
+       InventarioClass.prototype.checkarDisponibilidadDeHabitaciones = function(model){
+          var that = this;
+          var arrDisponibles = that._conseguirArrHabitacionesDisponiblesSegunTipo(model);
+          var cuantasQuieren = model.habitaciones;
+          var cantidadHabitacionesDisponibles = arrDisponibles.length;
+          if(cantidadHabitacionesDisponibles >= cuantasQuieren){
             return true;
           }
           return false;
@@ -80,19 +82,23 @@
 
         InventarioClass.prototype.guardarReservacionEnInventario = function(model){
           var that = this;
-          var reservacion = {fechaEntrada: model.fechaEntrada, fechaSalida: model.fechaSalida};
           var cuantas = model.habitaciones;
-          var tipo = model.tipo;
+          //arrDisponibles >= cuantas, y son del tipo deseado
+          var arrDisponibles = that._conseguirArrHabitacionesDisponiblesSegunTipo(model);
+          var inventario = that.inventario;
 
-          var contador = 0;
-          for (var i = 0; i < that.inventario.length; i++) {
-            //si la habitacion del inventario es del tipo deseado , y esta disponible, agregar las deseadas.
-            var habitacion = that.inventario[i];
-            if(habitacion.tipo === tipo && contador < cuantas && that._checkarDisponibilidadFechaEntradaDeseada(habitacion,reservacion.fechaEntrada) && that._checkarDisponibilidadFechaSalidaDeseada(habitacion,reservacion.fechaSalida)){
-              that.inventario[i].reservaciones.push(reservacion);
-              contador ++;
+          var contadorDeReservacionesGuardadasEnInventario = 0;
+          for (var i = 0; i < arrDisponibles.length; i++) {
+            var habDisponible = arrDisponibles[i];
+            for (var j = 0; j < inventario.length; j++) {
+              var habInventario = inventario[j];
+              if(habDisponible === habInventario && contadorDeReservacionesGuardadasEnInventario < cuantas){
+                  habInventario.reservaciones.push({fechaEntrada:model.fechaEntrada,fechaSalida:model.fechaSalida});
+                  contadorDeReservacionesGuardadasEnInventario ++;
+                  continue;
+              }
             }
-          }
+          };
           return;
         };
 
