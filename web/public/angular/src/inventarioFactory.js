@@ -19,38 +19,6 @@
               {habitacion:13,tipo:"doble", reservaciones: []}
             ];
         };
-/*
-        InventarioClass.prototype.findByRoom = function(habitacion){
-            var that = this;
-            var found = undefined;
-            for(var i = 0; i < that.inventario.length; i++) {
-                if(that.inventario[i].habitacion === habitacion) {
-                    found = that.inventario[i];
-                    break;
-                }
-            }
-            return found;
-        };
-        InventarioClass.prototype.removeRoomFromInventario = function(obj) {
-            var that = this;
-            var found = that.findByRoom (obj.habitacion);
-            var index = that.inventario.indexOf(found);
-            that.inventario.splice(index, 1);
-        };
-        InventarioClass.prototype.removeElementsFromInventarioWithArr = function(arrParaBorrar){
-          var that = this;
-          var contadorBorradas = 0;
-          for (var i = 0; i < arrParaBorrar.length; i++) {
-            for (var j = 0; j < that.inventario.length; j++) {
-              if(arrParaBorrar[i] === that.inventario[j]){
-                that.removeRoomFromInventario(arrParaBorrar[i]);
-                contadorBorradas ++;
-              }
-            }
-          };
-          return contadorBorradas;
-        };
-*/
         InventarioClass.prototype._checkarDisponibilidadFechaEntradaDeseada = function (habitacion,fechaEntrada) {
           var that = this;
           var disponible = true;
@@ -68,7 +36,7 @@
           var that = this;
           var disponible = true;
           for (var i = 0; i < habitacion.reservaciones.length; i++) {
-            //la fecha de entrada deseada se encuentra dentro de algun periodo reservado de la habitacioin?.
+            //la fecha de salida deseada se encuentra dentro de algun periodo reservado de la habitacioin?.
             if(fechaSalida >= habitacion.reservaciones[i].fechaEntrada && fechaSalida <= habitacion.reservaciones[i].fechaSalida){
               //se encuentra en periodo reservado, así que false, porque no está disponible.
               disponible = false;
@@ -93,27 +61,24 @@
           var tipo = model.tipo;
 
           var habitacionesDisponibles = 0;
-          var contador = 0;
           for (var i = 0; i < that.inventario.length; i++) {
-            if(that.inventario[i].tipo === tipo ) { //&& contador < cuantasQuieren){
-              //cada habitacion del inventario filtrada por tipo y cantidad deseadas.
+            if(that.inventario[i].tipo === tipo ) {
+              //cada habitacion del inventario filtrada por tipo, aunque puede estar o no ocupada.
               var habitacion = that.inventario[i];
               var entradaDisponible = that._checkarDisponibilidadFechaEntradaDeseada(habitacion,fechasDeseadas.fechaEntrada);
               var salidaDisponible = that._checkarDisponibilidadFechaSalidaDeseada(habitacion,fechasDeseadas.fechaSalida);
               if(entradaDisponible === true && salidaDisponible === true){
                 habitacionesDisponibles ++;
               }
-            //  contador ++;
             }
           }
-
           if(habitacionesDisponibles >= cuantasQuieren){
             return true;
           }
           return false;
         };
 
-        InventarioClass.prototype.guardarRegistroEnInventario = function(model){
+        InventarioClass.prototype.guardarReservacionEnInventario = function(model){
           var that = this;
           var reservacion = {fechaEntrada: model.fechaEntrada, fechaSalida: model.fechaSalida};
           var cuantas = model.habitaciones;

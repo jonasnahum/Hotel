@@ -6,32 +6,34 @@
         var ctrl = this;
         ctrl.inventario = inventarioFactory();
 
-        ctrl.registros = [];
-        ctrl.fechaEntrada = '';
-        ctrl.fechaSalida = '';
-        ctrl.cliente = '';
-        ctrl.motivo = '';
-        ctrl.habitaciones = 1;
-        ctrl.tipo = 'sencilla';
-        ctrl.adultos = 1;
-        ctrl.ninos = 0;
+        ctrl.model = {
+          registros : [],
+          fechaEntrada : '',
+          fechaSalida : '',
+          cliente : '',
+          motivo : '',
+          habitaciones : 1,
+          tipo : 'sencilla',
+          adultos : 1,
+          ninos : 0
+        };
 
         ctrl.clearProps =function(){
-          ctrl.fechaEntrada = '';
-          ctrl.fechaSalida = '';
-          ctrl.cliente = '';
-          ctrl.motivo = '';
-          ctrl.habitaciones = 1;
-          ctrl.tipo = 'sencilla';
-          ctrl.adultos = 1;
-          ctrl.ninos = 0;
+          ctrl.model.fechaEntrada = '';
+          ctrl.model.fechaSalida = '';
+          ctrl.model.cliente = '';
+          ctrl.model.motivo = '';
+          ctrl.model.habitaciones = 1;
+          ctrl.model.tipo = 'sencilla';
+          ctrl.model.adultos = 1;
+          ctrl.model.ninos = 0;
         };
 
         ctrl.maxHab = function functionName() {
           var contador = 0;
           for (var i = 0; i < ctrl.inventario.inventario.length; i++) {
             var habitacion = ctrl.inventario.inventario[i];
-            if (habitacion.tipo === ctrl.tipo)
+            if (habitacion.tipo === ctrl.model.tipo)
               contador++;
           }
 
@@ -39,22 +41,13 @@
         };
 
         ctrl.guardar = function() {
-            var model = {
-              cliete:ctrl.cliente,
-              motivo:ctrl.motivo,
-              fechaEntrada:ctrl.fechaEntrada,
-              fechaSalida:ctrl.fechaSalida,
-              habitaciones:ctrl.habitaciones,
-              tipo:ctrl.tipo,
-              adultos:ctrl.adultos,
-              ninos:ctrl.ninos
-            };
+            var model = ctrl.model;
             var result = ctrl.inventario.checkarDisponibilidad(model);
             if(result === false){
               alert("habitaciones no disponibles");
               return;
             }
-            ctrl.inventario.guardarRegistroEnInventario(model);
+            ctrl.inventario.guardarReservacionEnInventario(model);
             ctrl.clearProps();
         };
         $(function() {
@@ -64,7 +57,7 @@
               dateFormat: "mm-dd-yy"
             });
             $( "#fechaEntrada" ).change(function(){
-                ctrl.fechaEntrada = $(this).val();
+                ctrl.model.fechaEntrada = $(this).val();
             });
             $( "#fechaSalida" ).datepicker({
               showWeek: true,
@@ -72,7 +65,7 @@
               dateFormat: "mm-dd-yy"
             });
             $( "#fechaSalida" ).change(function(){
-                ctrl.fechaSalida = $(this).val();
+                ctrl.model.fechaSalida = $(this).val();
             });
           });
     }]);
