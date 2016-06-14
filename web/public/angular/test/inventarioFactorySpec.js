@@ -564,4 +564,331 @@ describe('inventario test', function() {
           inventario.guardarReservacionEnInventario(modelTest);
           expect(inventario.inventario).toEqual(expected);
         }));
+
+
+
+
+        it('checkarDisponibilidadDeHabitaciones return true when there are available rooms', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: []},
+            {habitacion:2,tipo:"sencilla", reservaciones: []},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 10),
+              fechaSalida : new Date(2016, 5, 20),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+        it('checkarDisponibilidadDeHabitaciones return true when there are available rooms different date than the occupied', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: []},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 5),
+              fechaSalida : new Date(2016, 5, 9),
+              cliente : '',
+              motivo : '',
+              habitaciones : 2,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('checkarDisponibilidadDeHabitaciones return false the rooms are occupied', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:4,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 10),
+              fechaSalida : new Date(2016, 5, 20),
+              cliente : '',
+              motivo : '',
+              habitaciones : 2,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = false;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('checkarDisponibilidadDeHabitaciones return false when i want to register a tiny inside a larga', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:4,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 11),
+              fechaSalida : new Date(2016, 5, 19),
+              cliente : '',
+              motivo : '',
+              habitaciones : 2,
+              tipo : 'doble',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = false;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('checkarDisponibilidadDeHabitaciones return false when i want to register a date.salida is in the same span than a register', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:4,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 5),
+              fechaSalida : new Date(2016, 5, 15),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'doble',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = false;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('checkarDisponibilidadDeHabitaciones return false when i want to register a date.entrada is in the same span than a register', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:4,tipo:"doble", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 16),
+              fechaSalida : new Date(2016, 5, 22),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = false;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+        it('checkarDisponibilidadDeHabitaciones return true when i want to add available doble', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 10),
+              fechaSalida : new Date(2016, 5, 20),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'doble',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.checkarDisponibilidadDeHabitaciones(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+
+
+
+
+
+
+
+
+
+
+        it('fechasDeseadasNoAbarcanFechasRegistradas return true when i want to register a date', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 21),
+              fechaSalida : new Date(2016, 5, 23),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.fechasDeseadasNoAbarcanFechasRegistradas(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        
+/*
+        it('fechasDeseadasNoAbarcanFechasRegistradas return false when i want to register a date that embraces a register', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 5),
+              fechaSalida : new Date(2016, 5, 25),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = false;
+          //act
+          var result = inventario.fechasDeseadasNoAbarcanFechasRegistradas(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('fechasDeseadasNoAbarcanFechasRegistradas return true when i want to register an available different tipe', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 10),
+              fechaSalida : new Date(2016, 5, 20),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'doble',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.fechasDeseadasNoAbarcanFechasRegistradas(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+        it('fechasDeseadasNoAbarcanFechasRegistradas return true when i want to register a large date in available second sencilla', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: []},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 9),
+              fechaSalida : new Date(2016, 5, 21),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'sencilla',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.fechasDeseadasNoAbarcanFechasRegistradas(modelTest);
+          expect(result).toEqual(expected);
+        }));
+
+
+        it('fechasDeseadasNoAbarcanFechasRegistradas return true when i want to register an available doble', inject(function (inventarioFactory) {
+          //arrange
+          var inventario = inventarioFactory();
+          inventario.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:2,tipo:"sencilla", reservaciones: [{fechaEntrada: new Date(2016, 5, 10), fechaSalida: new Date(2016, 5, 20) }]},
+            {habitacion:3,tipo:"doble", reservaciones: []},
+            {habitacion:4,tipo:"doble", reservaciones: []}
+          ];
+          var modelTest = {
+              registros : [],
+              fechaEntrada : new Date(2016, 5, 10),
+              fechaSalida : new Date(2016, 5, 20),
+              cliente : '',
+              motivo : '',
+              habitaciones : 1,
+              tipo : 'doble',
+              adultos : 1,
+              ninos : 0
+            };
+          expected = true;
+          //act
+          var result = inventario.fechasDeseadasNoAbarcanFechasRegistradas(modelTest);
+          expect(result).toEqual(expected);
+        }));
+*/
 });

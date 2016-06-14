@@ -42,13 +42,35 @@
 
         ctrl.guardar = function() {
             var model = ctrl.model;
-            var result = ctrl.inventario.checkarDisponibilidadDeHabitaciones(model);
-            if(result === false){
-              alert("habitaciones no disponibles");
+
+            var porTipo = ctrl.inventario.filtrarInventariodeHabsPorTipo(model);
+            if(porTipo.length === 0){
+              alert("Error en tipo");
               return;
-            }
-            ctrl.inventario.guardarReservacionEnInventario(model);
+            };
+
+            var fechaLibre_tipo = ctrl.inventario.filtrarArrPorFecha(porTipo, model);
+            if(fechaLibre_tipo.length === 0){
+              alert("Error en fecha");
+              return;
+            };
+
+            var noAbarcan_fechaLibre_tipo = ctrl.inventario.filtrarLasQueNoAbarcan(fechaLibre_tipo, model);
+            if(noAbarcan_fechaLibre_tipo.length === 0){
+              alert("Error en la fecha dada puede abarcar fechas ya registradas.");
+              return;
+            };
+
+            var cantidad_noAbarcan_fechaLibre_tipo = ctrl.inventario.filtrarPorCantidad(noAbarcan_fechaLibre_tipo, model);
+            if(cantidad_noAbarcan_fechaLibre_tipo.length === 0){
+              alert("Error en cantidad");
+              return;
+            };
+
+            ctrl.inventario.guardarFiltradas(cantidad_noAbarcan_fechaLibre_tipo, model);
+
             ctrl.clearProps();
+
         };
         $(function() {
             $( "#fechaEntrada" ).datepicker({
