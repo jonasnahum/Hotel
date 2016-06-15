@@ -78,16 +78,30 @@
           return that.borrarIndicesFromArray(arr, habitacioinesParaBorrar);
         };
         InventarioClass.prototype.borrarIndicesFromArray = function(arr,habitacioinesParaBorrar){
-          var newArr = [];
+          var arr = arr;
+          for (var j = 0; j < habitacioinesParaBorrar.length; j++) {
+            var index = arr.indexOf(habitacioinesParaBorrar[j]);
+            if(index != -1){//si se encuentra habitacion opara borrar en el array..
+               arr.splice(index, 1); //borrar esa habitacion del array.
+            }
+          }
+          return arr;
+        };
+
+
+      /*    var newArr = [];
           for (var i = 0; i < arr.length; i++) {
+            var habDisponible = arr[i];
             for (var j = 0; j < habitacioinesParaBorrar.length; j++) {
-              if(!arr[i]===habitacioinesParaBorrar[j]){
+              var habBorrar = habitacioinesParaBorrar[j];
+              if(habDisponible != habBorrar){
                 newArr.push(arr[i]);
               }
+              continue;
             }
           }
           return newArr;
-        };
+        };*/
         InventarioClass.prototype.guardarFiltradas = function(filtradas, model){
           var that = this;
           var filtradas = filtradas;
