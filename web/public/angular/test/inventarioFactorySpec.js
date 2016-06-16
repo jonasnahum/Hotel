@@ -381,6 +381,10 @@ describe('inventario test', function() {
           ];
           //act
           inventario.guardarReservacionEnInventario(modelTest);
+
+
+        
+
           expect(inventario.inventario).toEqual(expected);
         }));
         it('si guarda una habitacion tipo doble', inject(function (inventarioFactory) {
@@ -784,7 +788,7 @@ describe('inventario test', function() {
           expect(result).toEqual(expected);
         }));
 
-        
+
 /*
         it('fechasDeseadasNoAbarcanFechasRegistradas return false when i want to register a date that embraces a register', inject(function (inventarioFactory) {
           //arrange

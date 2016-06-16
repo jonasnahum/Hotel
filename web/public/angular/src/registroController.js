@@ -117,6 +117,8 @@
 
             ctrl.inventario.guardarFiltradas(cantidad_noAbarcan_fechaLibre_tipo, model);
 
+            ctrl.inventario.ordenarFechas();
+
             ctrl.clearProps();
 
         };

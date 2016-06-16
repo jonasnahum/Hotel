@@ -134,6 +134,14 @@
           };
           return;
         };
+        InventarioClass.prototype.ordenarFechas = function() {
+          var that = this;
+          for (var i = 0; i < that.inventario.length; i++) {
+            that.inventario[i].reservaciones.sort(function(a,b){
+              return new Date(a.fechaEntrada).getTime() - new Date(b.fechaEntrada).getTime();
+            });
+          }
+        };
 
         return function() {
             return new InventarioClass();
