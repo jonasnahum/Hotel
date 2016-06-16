@@ -142,6 +142,23 @@
             });
           }
         };
+        InventarioClass.prototype.deleteReservaciones = function () {
+          var that = this;
+          this.inventario = [
+            {habitacion:1,tipo:"sencilla", reservaciones: []},
+            {habitacion:2,tipo:"sencilla", reservaciones: []},
+            {habitacion:3,tipo:"sencilla", reservaciones: []},
+            {habitacion:4,tipo:"sencilla", reservaciones: []},
+            {habitacion:5,tipo:"sencilla", reservaciones: []},
+            {habitacion:6,tipo:"sencilla", reservaciones: []},
+            {habitacion:7,tipo:"doble", reservaciones: []},
+            {habitacion:8,tipo:"doble", reservaciones: []},
+            {habitacion:9,tipo:"doble", reservaciones: []},
+            {habitacion:10,tipo:"doble", reservaciones: []},
+            {habitacion:11,tipo:"doble", reservaciones: []},
+            {habitacion:13,tipo:"doble", reservaciones: []}
+          ];
+        };
 
         return function() {
             return new InventarioClass();

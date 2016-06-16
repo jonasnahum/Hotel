@@ -75,7 +75,9 @@
           }
           return false;
         };
-
+        ctrl.deleteReservaciones = function(){
+          ctrl.inventario.deleteReservaciones();
+        };
         ctrl.guardar = function() {
             var model = ctrl.model;
 
