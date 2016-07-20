@@ -57,11 +57,13 @@ var ReservacionesApi = (function() {
 //checkar si se debe terminar la conexion.
       ReservacionesApi.prototype.save = function(req, res, next){
           var that = this;
-          var str = "SELECT habitaciones.id  FROM habitaciones LEFT JOIN reservaciones ON habitaciones.id = reservaciones.hab_id and ( ? between reservaciones.fechaEntrada and reservaciones.fechaSalida OR ? between reservaciones.fechaEntrada and reservaciones.fechaSalida  OR reservaciones.fechaEntrada between ? and ?) where reservaciones.fechaEntrada is null and habitaciones.tipo = ? LIMIT ?";
-          that.con.query(str,[req.body.fechaEntrada,req.body.fechaSalida, req.body.fechaEntrada, req.body.fechaSalida, req.body.tipo, req.body.cuantas],function(err,rows){
+          var str = "SELECT habitaciones.id AS hab_Id, ? AS fechaEntrada, ? AS fechaSalida, ? AS cliente, ? AS tel, ? AS correo, ? AS adultos, ? AS niños FROM habitaciones LEFT JOIN reservaciones ON habitaciones.id = reservaciones.hab_id AND ( ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR reservaciones.fechaEntrada between ? AND ?) WHERE reservaciones.fechaEntrada IS null and habitaciones.tipo = ? LIMIT ?";
+          that.con.query(str,[req.body.fechaEntrada, req.body.fechaSalida, req.body.cliente, req.body.tel, req.body.correo, req.body.adultos, req.body.niños, req.body.fechaEntrada,req.body.fechaSalida, req.body.fechaEntrada, req.body.fechaSalida, req.body.tipo, req.body.cuantas],function(err,rows){
             if(err)
               console.log(err);
             if(rows.length){
+              console.log(rows)
+              /*
               var post = {
                 hab_Id: rows[0].id,
                 fechaEntrada:req.body.fechaEntrada,
@@ -72,11 +74,13 @@ var ReservacionesApi = (function() {
                 adultos:req.body.adultos,
                 niños: req.body.niños
               };
-              that.con.query("INSERT INTO ?? SET ?", [that.table,post], function(err,results,fields){
+              */
+              that.con.query("INSERT INTO ?? SET ?", [that.table,rows[0]], function(err,results,fields){
                 if(err)
                   console.log(err);
                 console.log(results);
               });
+
             }else{
               console.log("rows vacio rows vacio rowss vacioo--------------");
             };
