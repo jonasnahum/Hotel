@@ -1,6 +1,7 @@
 var ReservacionesApi = (function() {
-    var ReservacionesApi = function(dbConnection) {
+    var ReservacionesApi = function(dbConnection, Hm) {
         this.con = dbConnection.connect();
+        this.hm = Hm;
         this.table = ["reservaciones"];
     };
      //curl http://localhost:3000/reservaciones/api/
@@ -24,47 +25,19 @@ var ReservacionesApi = (function() {
             console.log(rows);
           });
       };
-      ReservacionesApi.prototype.getRowsHabitacionesLibres = function(fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños, tipo, cuantas, cb) {
-          var that = this;
-          var str = "SELECT habitaciones.id AS hab_Id, ? AS fechaEntrada, ? AS fechaSalida, ? AS cliente, ? AS tel, ? AS correo, ? AS adultos, ? AS niños FROM habitaciones LEFT JOIN reservaciones ON habitaciones.id = reservaciones.hab_id AND ( ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR reservaciones.fechaEntrada between ? AND ?) WHERE reservaciones.fechaEntrada IS null and habitaciones.tipo = ?";
-          that.con.query(str,[fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños, fechaEntrada, fechaSalida, fechaEntrada, fechaSalida, tipo],function(err,rows){
-            if(err)
-              console.log(err);
-            if(rows.length >= cuantas){
-              cb(rows);
-              return;
-            }
-            if(rows.length < cuantas){
-              console.log("no hay habitaciones disponibles, tu quieres..");
-              console.log(cuantas);
-              console.log("pero tenemos estos ids de habitaciones disponibles..");
-              console.log(rows.length);
-            }
-          });
-      };
-      //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-11-03", "fechaSalida": "2016-11-06", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 3 }' http://localhost:3000/reservaciones/api/
-//checkar disponiblidad. metodo en otra clase, que cuando sea true, se ejecute un callback
-//hacer reservacion.
-//checkar si se debe terminar la conexion.
+      //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-01-15", "fechaSalida": "2016-01-20", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 6 }' http://localhost:3000/reservaciones/api/
       ReservacionesApi.prototype.save = function(req, res, next){
           var that = this;
+          var nestedArr = [];
           var cb = function(rows){
-            var arrs = [];
-            for (var i = 0; i < rows.length; ++i) {
-              if(arrs.length === req.body.cuantas){
-                break;
-              }
-              var arr = [rows[i].hab_Id, rows[i].fechaEntrada,rows[i].fechaSalida,rows[i].cliente,rows[i].tel,rows[i].correo,rows[i].adultos,rows[i].niños];
-              arrs.push(arr);
-            }
-
-            that.con.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños)  VALUES ?", [arrs], function(err,rows){
+            nestedArr = that.hm.takeCuantasFromLibres(rows, req.body.cuantas);
+            that.con.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños)  VALUES ?", [nestedArr], function(err,rows){
               if(err)
                 console.log(err);
               console.log(rows);
             });
           };
-          that.getRowsHabitacionesLibres(
+          that.hm.getRowsHabitacionesLibres(
             req.body.fechaEntrada,
             req.body.fechaSalida,
             req.body.cliente,
@@ -77,7 +50,6 @@ var ReservacionesApi = (function() {
             cb
           );
       };
-
       //curl -X PUT -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-06-01", "fechaSalida": "2016-06-03", "cliente": "jjonas probando update", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 1 }'  http://localhost:3000/reservaciones/api/13
       ReservacionesApi.prototype.update = function(req, res, next){
           var that = this;
