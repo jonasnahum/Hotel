@@ -42,7 +42,7 @@ var ReservacionesApi = (function() {
             }
           });
       };
-      //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-10-03", "fechaSalida": "2016-10-06", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 3 }' http://localhost:3000/reservaciones/api/
+      //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-11-03", "fechaSalida": "2016-11-06", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 3 }' http://localhost:3000/reservaciones/api/
 //checkar disponiblidad. metodo en otra clase, que cuando sea true, se ejecute un callback
 //hacer reservacion.
 //checkar si se debe terminar la conexion.
@@ -57,6 +57,7 @@ var ReservacionesApi = (function() {
               var arr = [rows[i].hab_Id, rows[i].fechaEntrada,rows[i].fechaSalida,rows[i].cliente,rows[i].tel,rows[i].correo,rows[i].adultos,rows[i].niños];
               arrs.push(arr);
             }
+
             that.con.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños)  VALUES ?", [arrs], function(err,rows){
               if(err)
                 console.log(err);
