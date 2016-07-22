@@ -2,14 +2,12 @@ var intravenous = require("intravenous");
 
 //local modules
 var config = require('./../database/db-config');
-var DbConnection = require("./../database/dbConnection");
-DbConnection.$inject = ["mysql", "config"];
 
 var Hm = require("./hotelManagger");
-Hm.$inject = ["dbConnection"];
+Hm.$inject = ["config"];
 
 var ReservacionesApi = require("./reservacionesApi");
-ReservacionesApi.$inject = ["dbConnection","hm"];
+ReservacionesApi.$inject = ["hm","config"];
 
 var ReservacionesController = require("./reservacionesController");
 ReservacionesController.$inject = ["express", "reservacionesApi"];
@@ -17,7 +15,6 @@ ReservacionesController.$inject = ["express", "reservacionesApi"];
 var container = intravenous.create();
 
 //register
-container.register("dbConnection", DbConnection);
 container.register("hm", Hm);
 container.register("reservacionesApi", ReservacionesApi);
 container.register("reservacionesController", ReservacionesController);

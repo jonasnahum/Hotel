@@ -1,8 +1,6 @@
-//doesnt return a new instance.
 var Hm = (function() {
-    var Hm = function(dbConnection) {
-      this.dbConnection = dbConnection;
-      this.con = dbConnection.connect();
+    var Hm = function(config) {
+      this.config = config;
     };
     Hm.prototype.takeCuantasFromLibres = function(rows, cuantas){
       var arrs = [];
@@ -17,10 +15,14 @@ var Hm = (function() {
     };
 
     Hm.prototype.getRowsHabitacionesLibres = function(fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños, tipo, cuantas, cb) {
-        var that = this;
+      var that = this;
+      // ?? doble query identifiers ? para valores.
+      var callbackDatabase = function(err, connection){
+        if(err)
+          console.log(err);
         var str = "SELECT habitaciones.id AS hab_Id, ? AS fechaEntrada, ? AS fechaSalida, ? AS cliente, ? AS tel, ? AS correo, ? AS adultos, ? AS niños FROM habitaciones LEFT JOIN reservaciones ON habitaciones.id = reservaciones.hab_id AND ( ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR ? between reservaciones.fechaEntrada AND reservaciones.fechaSalida OR reservaciones.fechaEntrada between ? AND ?) WHERE reservaciones.fechaEntrada IS null and habitaciones.tipo = ?";
-        that.dbConnection.connection.query(str,[fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños, fechaEntrada, fechaSalida, fechaEntrada, fechaSalida, tipo],function(err,rows){
-      //    that.dbConnection.connection.release();
+        connection.query(str,[fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños, fechaEntrada, fechaSalida, fechaEntrada, fechaSalida, tipo],function(err,rows){
+          connection.release();
           if(err)
             console.log(err);
           if(rows.length >= cuantas){
@@ -33,7 +35,9 @@ var Hm = (function() {
             console.log("pero tenemos estos ids de habitaciones disponibles..");
             console.log(rows.length);
           }
-        });
+         });
+      };
+      that.config.getConnection(callbackDatabase);
     };
     return Hm;
 })();

@@ -9,9 +9,9 @@ module.exports = (function() {
         router.get('/', reservacionesApi.getAll.bind(reservacionesApi));
         router.get('/:id', reservacionesApi.getOne.bind(reservacionesApi));
         router.post('/', reservacionesApi.save.bind(reservacionesApi));
-        router.put('/:id', reservacionesApi.update.bind(reservacionesApi));
+        router.put('/:id', reservacionesApi.update.bind(reservacionesApi));      
         router.delete('/:id', reservacionesApi.delete.bind(reservacionesApi));
-        
+
     }
     return ReservacionesController;
 })();
