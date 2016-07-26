@@ -1,4 +1,4 @@
-<div style="padding-right: 0px;padding-left: 0px;" class="container-fluid">
+<div style="padding-right: 0px;padding-left: 0px;" class="container-fluid" >
   <nav class="navbar navbar-default" style="margin-bottom: 0px;">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -65,47 +65,65 @@
       <center><h1>Reservaciones</h1></center>
     </div>
   </div>
-  <form class="form-horizontal" name="frmReg" ng-submit="ctrl.guardar()" ng-controller="registroController as ctrl">
-    <div class="form-group">
-      <label for="cliente" class="col-md-2 control-label">Nombre del cliente :</label>
-      <div class="col-md-10">
-        <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Nombre" ng-model="ctrl.model.cliente" style="width:90%;">
+  <div ng-controller="registroController as ctrl">
+    <form class="form-horizontal" name="frmReg" ng-submit="ctrl.guardar()">
+      <div class="form-group">
+        <label for="cliente" class="col-md-2 control-label">Nombre del cliente :</label>
+        <div class="col-md-10">
+          <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Nombre" ng-model="ctrl.model.cliente" style="width:90%;">
+        </div>
       </div>
+      <div class="form-group">
+        <label for="tel" class="col-md-2 control-label">Teléfono : </label>
+        <div class="col-md-2">
+          <input type="text" name="tel" class="form-control" placeholder="Teléfono" ng-model="ctrl.model.tel" id="tel">
+        </div>
+        <label for="correo" class="col-md-1 control-label">Correo : </label>
+          <input type="email" name="correo" class="col-md-2 control-label" placeholder="Correo" ng-model="ctrl.model.correo"  id="correo" >
+      </div>
+      <div class="form-group">
+        <label for="cuantas" class="col-md-2 control-label">¿Cuántas habitaciones?</label>
+        <div class="col-md-1">
+          <input type="number" name="cuantas" class="form-control" ng-model="ctrl.model.cuantas" id="cuantas">
+        </div>
+        <label for="tipo" class="col-md-1 control-label">Sencilla(s)</label>
+          <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="sencilla" id="tipo" style="width:10%;">
+        <label for="tipo" class="col-md-1 control-label">Doble(s)</label>
+          <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="doble" id="tipo" style="width:10%;">
+      </div>
+      <div class="form-group">
+        <label for="adultos" class="col-md-2 control-label">Adultos : </label>
+        <div class="col-md-1">
+          <input type="number" name="adultos" class="form-control" ng-model="ctrl.model.adultos" id="adultos"  max="30" style="width:100%;">
+        </div>
+        <label for="ninos" class="col-md-1 control-label">Niños</label>
+        <div class="col-md-1">
+          <input type="number" name="ninos" class="form-control" ng-model="ctrl.model.ninos" id="ninos"  max="30" style="width:100%;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechaEntrada" class="col-md-2 control-label">Fecha de entrada : </label>
+        <div class="col-md-2">
+          <input type="text" name="fechaEntrada" class="form-control" ng-model="ctrl.model.fechaEntrada" id="fechaEntrada">
+        </div>
+        <label for="fechaSalida" class="col-md-2 control-label">Fecha de Salida</label>
+        <div class="col-md-2">
+          <input type="text" name="fechaSalida" class="form-control" ng-model="ctrl.model.fechaSalida" id="fechaSalida">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-7 col-md-5">
+          <input class="btn btn-lg btn-success" role="button" type="submit" value="Reservar habitacion" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div ng-controller="ubicacionController as ctrl">
+      <center><h1>Nuestra ubicación</h1></center>
+      <div id="map" style="width: 70%; height: 400px; background-color: black;"></div>
     </div>
-    <div class="form-group">
-      <label for="cuantas" class="col-md-2 control-label">¿Cuántas habitaciones?</label>
-      <div class="col-md-1">
-        <input type="number" name="cuantas" class="form-control" ng-model="ctrl.model.habitaciones" id="cuantas">
-      </div>
-      <label for="tipo" class="col-md-1 control-label">Sencilla(s)</label>
-        <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="sencilla" id="tipo" style="width:10%;">
-      <label for="tipo" class="col-md-1 control-label">Doble(s)</label>
-        <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="doble" id="tipo" style="width:10%;">
-    </div>
-    <div class="form-group">
-      <label for="adultos" class="col-md-2 control-label">Adultos : </label>
-      <div class="col-md-1">
-        <input type="number" name="adultos" class="form-control" ng-model="ctrl.model.adultos" id="adultos"  max="30" style="width:100%;">
-      </div>
-      <label for="niños" class="col-md-1 control-label">Niños</label>
-      <div class="col-md-1">
-        <input type="number" name="niños" class="form-control" ng-model="ctrl.model.niños" id="niños"  max="30" style="width:100%;">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="fechaEntrada" class="col-md-2 control-label">Fecha de entrada : </label>
-      <div class="col-md-1">
-        <input type="text" name="fechaEntrada" class="form-control" ng-model="ctrl.model.fechaEntrada" id="fechaEntrada">
-      </div>
-      <label for="fechaSalida" class="col-md-2 control-label">Fecha de Salida</label>
-      <div class="col-md-1">
-        <input type="text" name="fechaSalida" class="form-control" ng-model="ctrl.model.fechaSalida" id="fechaSalida">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-offset-7 col-md-5">
-        <button type="submit" class="btn btn-default">Reservar</button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>

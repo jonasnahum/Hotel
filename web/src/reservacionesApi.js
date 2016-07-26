@@ -44,18 +44,24 @@ var ReservacionesApi = (function() {
     ReservacionesApi.prototype.save = function(req, res, next){
       var that = this;
       var cbForHm = function(rows){
+        if(rows.length < req.body.cuantas){
+          return res.json(rows);
+        }
         //insertar rows a bd.
         var cbConnection = function(err, connection){
           if(err)
             console.log(err);
           var nestedArr = [];
           nestedArr = that.hm.takeCuantasFromLibres(rows, req.body.cuantas);
+
           connection.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños)  VALUES ?", [nestedArr], function(err,rows){
             connection.release();
              if(err) {
                  console.log(err);
              } else {
+                 console.log("mensaje de api.");
                  console.log(rows);
+                 return res.json(rows);
              }
           });
         };
@@ -68,7 +74,7 @@ var ReservacionesApi = (function() {
         req.body.tel,
         req.body.correo,
         req.body.adultos,
-        req.body.niños,
+        req.body.ninos,
         req.body.tipo,
         req.body.cuantas,
         cbForHm

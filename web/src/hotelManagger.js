@@ -25,16 +25,8 @@ var Hm = (function() {
           connection.release();
           if(err)
             console.log(err);
-          if(rows.length >= cuantas){
-            cb(rows);
-            return;
-          }
-          if(rows.length < cuantas){
-            console.log("no hay habitaciones disponibles, tu quieres..");
-            console.log(cuantas);
-            console.log("pero tenemos estos ids de habitaciones disponibles..");
-            console.log(rows.length);
-          }
+          cb(rows);
+          return;
          });
       };
       that.config.getConnection(callbackDatabase);
