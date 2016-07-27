@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var container = require('./src/container');
 var reservaciones = container.get("reservacionesController");
-
+var habitaciones = container.get("habitacionesController");
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var correo = require('./src/correo');
 
 var app = express();
 
@@ -27,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/reservaciones/api', reservaciones.router);
+app.use('/habitaciones/api', habitaciones.router);
+app.use('/correo', correo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,4 +1,4 @@
-<div style="padding-right: 0px;padding-left: 0px;" class="container-fluid" >
+<div style="padding-right: 0px;padding-left: 0px;" class="container-fluid"  ng-controller="mainController as ct" id="bienvenida">
   <nav class="navbar navbar-default" style="margin-bottom: 0px;">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,19 +62,25 @@
   </div>
   <div class="row">
     <div class="col-md-12">
+      <br>
+      <br>
+      <br>
       <center><h1>Reservaciones</h1></center>
+      <br>
+      <br>
+      <br>
     </div>
   </div>
   <div ng-controller="registroController as ctrl">
     <form class="form-horizontal" name="frmReg" ng-submit="ctrl.guardar()">
       <div class="form-group">
-        <label for="cliente" class="col-md-2 control-label">Nombre del cliente :</label>
-        <div class="col-md-10">
+        <label for="cliente" class="col-md-offset-1 col-md-1 control-label">Nombre del cliente :</label>
+        <div class="col-md-8">
           <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Nombre" ng-model="ctrl.model.cliente" style="width:90%;">
         </div>
       </div>
       <div class="form-group">
-        <label for="tel" class="col-md-2 control-label">Teléfono : </label>
+        <label for="tel" class="col-md-offset-1 col-md-1 control-label">Teléfono : </label>
         <div class="col-md-2">
           <input type="text" name="tel" class="form-control" placeholder="Teléfono" ng-model="ctrl.model.tel" id="tel">
         </div>
@@ -82,7 +88,7 @@
           <input type="email" name="correo" class="col-md-2 control-label" placeholder="Correo" ng-model="ctrl.model.correo"  id="correo" >
       </div>
       <div class="form-group">
-        <label for="cuantas" class="col-md-2 control-label">¿Cuántas habitaciones?</label>
+        <label for="cuantas" class="col-md-offset-1 col-md-1 control-label">¿Cuántas habitaciones?</label>
         <div class="col-md-1">
           <input type="number" name="cuantas" class="form-control" ng-model="ctrl.model.cuantas" id="cuantas">
         </div>
@@ -92,7 +98,7 @@
           <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="doble" id="tipo" style="width:10%;">
       </div>
       <div class="form-group">
-        <label for="adultos" class="col-md-2 control-label">Adultos : </label>
+        <label for="adultos" class="col-md-offset-1 col-md-1 control-label">Adultos : </label>
         <div class="col-md-1">
           <input type="number" name="adultos" class="form-control" ng-model="ctrl.model.adultos" id="adultos"  max="30" style="width:100%;">
         </div>
@@ -102,7 +108,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="fechaEntrada" class="col-md-2 control-label">Fecha de entrada : </label>
+        <label for="fechaEntrada" class="col-md-offset-1 col-md-2 control-label">Fecha de entrada : </label>
         <div class="col-md-2">
           <input type="text" name="fechaEntrada" class="form-control" ng-model="ctrl.model.fechaEntrada" id="fechaEntrada">
         </div>
@@ -118,12 +124,128 @@
       </div>
     </form>
   </div>
-
   <div class="row">
     <div class="col-md-12">
-      <div ng-controller="ubicacionController as ctrl">
-      <center><h1>Nuestra ubicación</h1></center>
-      <div id="map" style="width: 70%; height: 400px; background-color: black;"></div>
+      <br>
+      <br>
+      <br>
+      <center><h1>Dirección</h1></center>
+      <br>
+      <br>
+      <br>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-5">
+       <br>
+       <p>
+         <strong>Calle:</strong> Justo Sierra 60.
+         <br>
+         <strong>Colonia:</strong> Jorhentpiri
+         <br>
+         <strong>C.P.</strong> 60074
+         <br>
+         <strong>Uruapan, Michoacán</strong>
+       </p>
+       <br>
+       <br>
+       <ul class="list-unstyled" style="text-align: left">
+           <li><strong>Rubro:</strong>Hotelería</li>
+           <li><strong>Descripcion:</strong> <p>Hotel de lujo con estacionamiento, wi-fi, restaurant y alberca.</p></li>
+           <li><strong>Horario:</strong> 7:00 a.m. a 4:00 p.m.</li>
+           <li><strong>Contacto:</strong> Jonas Jiménez</li>
+           <li><strong>Telefono:</strong> 4521652247</li>
+       </ul>
+    </div>
+    <div class="col-md-6">
+      <div ng-controller="ubicacionController as ctrl">
+        <div id="map" style="width: 70%; height: 400px; background-color: black;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <br>
+      <br>
+      <center><h1>Enviar correo</h1></center>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10" ng-controller="EmailFormController as emCtl">
+        <p>Contacto :  Jonás Nahúm Jiménez García</p>
+        <p>Email: jonasnahum@gmail.com</p>
+        <p>Cel :  (01) 452 165 22 47</p>
+        <p>Uruapan Michoacan México</p>
+        <form name="mailForm" id="myForm" ng-submit="mailForm.$valid && emCtl.send()" novalidate>
+            <fieldset ng-attr-disabled="{{emCtl.waiting || undefined}}">
+                <div class="form-group">
+                    <label>Mi Nombre</label>
+                    <input type="text" class="form-control" name="name" placeholder="Nombre"
+                           ng-model="emCtl.name" required />
+
+                    <div class="errorMessages" ng-messages="mailForm.name.$error"
+                         ng-if="(!mailForm.name.$pristine || mailForm.$submitted)" >
+                        <div ng-messages-include="/error/messages.html"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mi Correo</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email"
+                           ng-model="emCtl.email" required />
+                    <div class="errorMessages" ng-messages="mailForm.email.$error"
+                         ng-if="(!mailForm.email.$pristine || mailForm.$submitted)">
+                        <div ng-messages-include="/error/messages.html"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mi Teléfono</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Teléfono"
+                           ng-model="emCtl.phone" ng-minlength="5" ng-maxlength="15" ng-pattern="/^[0-9]+$/"/>
+                    <div class="errorMessages" ng-messages="mailForm.phone.$error"
+                         ng-if="!mailForm.phone.$pristine || mailForm.$submitted">
+                        <div ng-messages-include="/error/messages.html"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mi Mensaje</label>
+                    <textarea class="form-control" name="message" placeholder="Mensaje"
+                              ng-model="emCtl.message" required ></textarea>
+                    <div class="errorMessages" ng-messages="mailForm.message.$error"
+                         ng-if="(!mailForm.message.$pristine || mailForm.$submitted)" >
+                        <div ng-messages-include="/error/messages.html"></div>
+                    </div>
+                </div>
+
+                <div class="text-right" >
+                    <button type="submit" class="btn btn-primary">Enviar Correo</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <br>
+      <br>
+      <center><h1>Redes sociales</h1></center>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-12">
+      <ul class="list-unstyled" style="text-align: left">
+          <li><strong>Facebook: </strong><a target="_blank" href="https://www.facebook.com/paginasweburuapan/">Páginasweburuapan</a></li>
+          <li><strong>Flickr: </strong><a target="_blank" href="https://www.flickr.com/confeccionescolombia/">Galería de fotos</a></li>
+          <li><strong>Twitter:</strong><a ng-click="ctrl.scrollTo('foo')">agregar dirección de twitter.</a> </li>
+      </ul>
+    </div>
+  </div>
+  <a style="margin-left: 85%;" ng-click="ct.scrollTo('bienvenida')">Regresar al inicio</a>
+</div><!--container-->

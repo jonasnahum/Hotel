@@ -9,7 +9,7 @@
           var mapDiv = document.getElementById('map');
           var map = new google.maps.Map(mapDiv, {
               center: myLatLng,
-              zoom: 8
+              zoom: 15
           });
           var marker = new google.maps.Marker({
             position: myLatLng,
