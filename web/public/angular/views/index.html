@@ -1,8 +1,9 @@
+  <div class="container-fluid">
   <div class="row" id="bienvenida">
-    <div class="col-md-12">
-      <div>
-        <img style="width: 100%; height: 100%;" src="http://www.hotelpresident.cz/files/cms/sized/files/hotel-president-prague/homepage/hotel-president-prague-lobby-001-1500x1000.jpg" />
-      </div>
+    <div class="col-md-12"  >
+       <img src="http://www.hotelpresident.cz/files/cms/sized/files/hotel-president-prague/homepage/hotel-president-prague-lobby-001-1500x1000.jpg"  height="80%" width="100%">
+      <!--<div style="background-image: url(http://www.hotelpresident.cz/files/cms/sized/files/hotel-president-prague/homepage/hotel-president-prague-lobby-001-1500x1000.jpg); height: 71em; background-repeat: no-repeat; background-size: cover;">
+      </div>-->
     </div>
   </div>
   <div class="row">
@@ -17,20 +18,34 @@
     </div>
   </div>
   <div ng-controller="registroController as ctrl">
-    <form class="form-horizontal" name="frmReg" ng-submit="ctrl.guardar()">
+    <form name="frmReg" ng-submit="frmReg.$valid && ctrl.guardar() " class="form-horizontal"  role="form" novalidate>
       <div class="form-group">
         <label for="cliente" class="col-md-offset-1 col-md-1 control-label">Nombre del cliente :</label>
         <div class="col-md-8">
-          <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Nombre" ng-model="ctrl.model.cliente" style="width:90%;">
+          <input type="text" name="cliente" class="form-control" placeholder="Nombre" ng-model="ctrl.model.cliente" style="width:90%;" ng-minlength="8" ng-maxlength="100" required>
+          <div class="errorMessages" ng-messages="frmReg.cliente.$error"
+               ng-if="(!frmReg.cliente.$pristine || frmReg.$submitted)" >
+              <div ng-messages-include="/err/messages.html"></div>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label for="tel" class="col-md-offset-1 col-md-1 control-label">Teléfono : </label>
         <div class="col-md-2">
-          <input type="text" name="tel" class="form-control" placeholder="Teléfono" ng-model="ctrl.model.tel" id="tel">
+          <input type="text" name="tel" class="form-control" placeholder="4521652247" ng-model="ctrl.model.tel"  ng-minlength="5" ng-maxlength="15" ng-pattern="/^[0-9]+$/" style="width:70%;" required/>
+          <div class="errorMessages" ng-messages="frmReg.tel.$error"
+                   ng-if="!frmReg.tel.$pristine || frmReg.$submitted" role="alert">
+                  <div ng-messages-include="/err/messages.html"></div>
+          </div>
         </div>
         <label for="correo" class="col-md-1 control-label">Correo : </label>
-          <input type="email" name="correo" class="col-md-2 control-label" placeholder="Correo" ng-model="ctrl.model.correo"  id="correo" >
+          <div class="col-md-2">
+            <input type="email" name="correo" class="control-label" placeholder="jonasnahum@gmail.com" ng-model="ctrl.model.correo"  ng-pattern="/^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/" required >
+            <div class="errorMessages" ng-messages="frmReg.correo.$error"
+                     ng-if="!frmReg.correo.$pristine || frmReg.$submitted" role="alert">
+                    <div ng-messages-include="/err/messages.html"></div>
+            </div>
+          </div>
       </div>
       <div class="form-group">
         <label for="cuantas" class="col-md-offset-1 col-md-1 control-label">¿Cuántas habitaciones?</label>
@@ -55,16 +70,24 @@
       <div class="form-group">
         <label for="fechaEntrada" class="col-md-offset-1 col-md-2 control-label">Fecha de entrada : </label>
         <div class="col-md-2">
-          <input type="text" name="fechaEntrada" class="form-control" ng-model="ctrl.model.fechaEntrada" id="fechaEntrada">
+          <input type="text" name="fechaEntrada" class="form-control" ng-model="ctrl.model.fechaEntrada" id="fechaEntrada"  placeholder="Seleccione la fecha de entrada" required>
+          <div class="errorMessages" ng-messages="frmReg.fechaEntrada.$error"
+                   ng-if="!frmReg.fechaEntrada.$pristine || frmReg.$submitted" role="alert">
+                  <div ng-messages-include="/err/messages.html"></div>
+          </div>
         </div>
         <label for="fechaSalida" class="col-md-2 control-label">Fecha de Salida</label>
         <div class="col-md-2">
-          <input type="text" name="fechaSalida" class="form-control" ng-model="ctrl.model.fechaSalida" id="fechaSalida">
+          <input type="text" name="fechaSalida" class="form-control" ng-model="ctrl.model.fechaSalida" id="fechaSalida" placeholder="Seleccione la fecha de salida"  required>
+          <div class="errorMessages" ng-messages="frmReg.fechaSalida.$error"
+                   ng-if="!frmReg.fechaSalida.$pristine || frmReg.$submitted" role="alert">
+                  <div ng-messages-include="/err/messages.html"></div>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <div class="col-md-offset-7 col-md-5">
-          <input class="btn btn-lg btn-success" role="button" type="submit" value="Reservar habitacion" />
+          <input class="btn btn-lg btn-success" role="button" type="submit"  value="Reservar habitacion" />
         </div>
       </div>
     </form>
@@ -131,28 +154,27 @@
                     <label>Mi Nombre</label>
                     <input type="text" class="form-control" name="name" placeholder="Nombre"
                            ng-model="emCtl.name" required />
-
                     <div class="errorMessages" ng-messages="mailForm.name.$error"
                          ng-if="(!mailForm.name.$pristine || mailForm.$submitted)" >
-                        <div ng-messages-include="/error/messages.html"></div>
+                        <div ng-messages-include="/err/messages.html"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Mi Correo</label>
-                    <input type="email" class="form-control" name="email" placeholder="Email"
+                    <input type="email" class="form-control" name="email" placeholder="ejemplo@gmail.com"
                            ng-model="emCtl.email" required />
                     <div class="errorMessages" ng-messages="mailForm.email.$error"
                          ng-if="(!mailForm.email.$pristine || mailForm.$submitted)">
-                        <div ng-messages-include="/error/messages.html"></div>
+                        <div ng-messages-include="/err/messages.html"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Mi Teléfono</label>
-                    <input type="text" class="form-control" name="phone" placeholder="Teléfono"
+                    <input type="text" class="form-control" name="phone" placeholder="4521652247"
                            ng-model="emCtl.phone" ng-minlength="5" ng-maxlength="15" ng-pattern="/^[0-9]+$/"/>
                     <div class="errorMessages" ng-messages="mailForm.phone.$error"
                          ng-if="!mailForm.phone.$pristine || mailForm.$submitted">
-                        <div ng-messages-include="/error/messages.html"></div>
+                        <div ng-messages-include="/err/messages.html"></div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -161,7 +183,7 @@
                               ng-model="emCtl.message" required ></textarea>
                     <div class="errorMessages" ng-messages="mailForm.message.$error"
                          ng-if="(!mailForm.message.$pristine || mailForm.$submitted)" >
-                        <div ng-messages-include="/error/messages.html"></div>
+                        <div ng-messages-include="/err/messages.html"></div>
                     </div>
                 </div>
 
@@ -193,3 +215,4 @@
     </div>
     <a style="margin-left: 85%;" ng-click="ct.scrollTo('bienvenida')">Regresar al inicio</a>
   </div>
+</div>

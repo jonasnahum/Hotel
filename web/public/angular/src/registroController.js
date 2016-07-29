@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('app');
 
-    app.controller('registroController', ["$location","reservacionesProxy", function($location, reservacionesProxy) {
+    app.controller('registroController', ["$scope", "$location","reservacionesProxy", function($scope, $location, reservacionesProxy) {
 
         var ctrl = this;
         ctrl.model = {
@@ -28,8 +28,17 @@
             fechaSalida : ''
           };
         };
-
+        ctrl.fechasCongruentes = function(){
+          if(ctrl.model.fechaEntrada < ctrl.model.fechaSalida){
+            return true;
+          }
+          return false;
+        };
         ctrl.guardar = function() {
+            if (!ctrl.fechasCongruentes()){
+              alert("Lo sentimos, parece que las fechas son incongruentes.");
+              return;
+            }
             reservacionesProxy.save(ctrl.model, function(data, status, headers, config){
               if(data.length<ctrl.model.cuantas){
                 alert("Lo sentimos, habitaciones no disponibles, sólo hay..." + data.length);
@@ -37,6 +46,7 @@
               }
               alert("Gracias, la reservación esta hecha con los siguientes datos:\n cliente: " + ctrl.model.cliente + "\n" + " teléfono: " + ctrl.model.tel+"\n" + " correo: " + ctrl.model.correo+"\n" + " habitaciones: " + ctrl.model.cuantas+"\n" + " tipo: " + ctrl.model.tipo+"\n" );
               ctrl.clearProps();
+              $scope.frmReg.$setPristine();
               $location.path('/');
             });
         };
