@@ -23,6 +23,24 @@ var ReservacionesApi = (function() {
        };
        that.config.getConnection(cb);
     };
+    //curl http://localhost:3000/reservaciones/api/join/
+    ReservacionesApi.prototype.getJoin = function(req, res, next) {
+        var that = this;
+        // ?? doble query identifiers ? para valores.
+        var cb = function(err, connection){
+          if(err)
+            console.log(err);
+          connection.query("SELECT habitaciones.numero, habitaciones.tipo, reservaciones.id, reservaciones.fechaEntrada, reservaciones.fechaSalida, reservaciones.cliente, reservaciones.tel, reservaciones.correo FROM habitaciones LEFT OUTER JOIN reservaciones ON habitaciones.ID=reservaciones.hab_Id ORDER BY numero, fechaEntrada",function(err,rows){
+            connection.release();
+             if(err) {
+                 console.log(err);
+             } else {
+               return res.json(rows);
+             }
+           });
+        };
+        that.config.getConnection(cb);
+     };
     //curl http://localhost:3000/reservaciones/api/25
     ReservacionesApi.prototype.getOne = function(req, res, next) {
         var that = this;
@@ -114,7 +132,7 @@ var ReservacionesApi = (function() {
           connection.release();
            if(err)
                console.log(err);
-           console.log(rows);
+           return res.json(rows);
         });
       };
       that.config.getConnection(cb);

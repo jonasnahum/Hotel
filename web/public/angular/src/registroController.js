@@ -35,7 +35,7 @@
                 alert("Lo sentimos, habitaciones no disponibles, sólo hay..." + data.length);
                 return;
               }
-              alert("Gracias por reservar, en breve nos comunicaremos con usted.");
+              alert("Gracias, la reservación esta hecha con los siguientes datos:\n cliente: " + ctrl.model.cliente + "\n" + " teléfono: " + ctrl.model.tel+"\n" + " correo: " + ctrl.model.correo+"\n" + " habitaciones: " + ctrl.model.cuantas+"\n" + " tipo: " + ctrl.model.tipo+"\n" );
               ctrl.clearProps();
               $location.path('/');
             });

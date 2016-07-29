@@ -22,6 +22,7 @@ var HabitacionesApi = (function() {
        };
        that.config.getConnection(cb);
     };
+
     //curl http://localhost:3000/habitaciones/api/12
     HabitacionesApi.prototype.getOne = function(req, res, next) {
         var that = this;
@@ -39,7 +40,7 @@ var HabitacionesApi = (function() {
         };
         that.config.getConnection(cb);
     };
-    //curl -i -H "Content-Type: application/json" -d '{ "numero": 13, "tipo": "doble" }' http://localhost:3000/habitaciones/api/
+    //curl -i -H "Content-Type: application/json" -d '{ "numero": 1, "tipo": "sencilla" }' http://localhost:3000/habitaciones/api/
     HabitacionesApi.prototype.save = function(req, res, next){
       var that = this;
         //insertar rows a bd.

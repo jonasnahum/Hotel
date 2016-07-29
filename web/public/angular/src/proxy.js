@@ -18,6 +18,13 @@
                 url: that.url
             }).success(success).error(that.error);
         };
+        Proxy.prototype.getAllJoint = function(success) {
+            var that = this;
+            $http({
+                method: 'GET',
+                url: that.url + "join/"
+            }).success(success).error(that.error);
+        };
         Proxy.prototype.getAllFromUser = function(userId, success) {
             var that = this;
             $http({
