@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var container = require('./src/container');
 var reservaciones = container.get("reservacionesController");
 var habitaciones = container.get("habitacionesController");
+var usuarios = container.get("usuariosController");
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var correo = require('./src/correo');
@@ -29,6 +30,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/reservaciones/api', reservaciones.router);
 app.use('/habitaciones/api', habitaciones.router);
+app.use('/usuarios/api', usuarios.router);
 app.use('/correo', correo);
 
 // catch 404 and forward to error handler

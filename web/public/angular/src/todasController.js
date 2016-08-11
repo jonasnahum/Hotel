@@ -1,8 +1,22 @@
 (function() {
     var app = angular.module('app');
-    app.controller('TodasController', ['$location', 'reservacionesProxy', function($location, proxy) {
+    app.controller('TodasController', ['$location', 'reservacionesProxy','tokenStorage', function($location, proxy, tokenStorage) {
         var ctrl = this;
         ctrl.clientes = [];
+        ctrl.emailUsuario = "";
+
+        ctrl.getEmail = function (){
+           ctrl.emailUsuario = tokenStorage.getEmail();
+         };
+        ctrl.getEmail();
+
+
+        ctrl.logout = function (){
+          tokenStorage.clearToken();
+          $location.path("/");
+          return false;
+        };
+        
         ctrl.getHumanReadable = function (str){
           if (str===null){
             return "";
