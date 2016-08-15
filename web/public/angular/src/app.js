@@ -8,6 +8,7 @@
         $router.when("/", { templateUrl: "angular/views/index.html" })
         $router.when("/signin", { templateUrl: "angular/views/signin.html" })
         $router.when("/todas", { templateUrl: "angular/views/todas.html" })
+        $router.when("/galeria", { templateUrl: "angular/views/galeria.html" })
         .otherwise({ redirectTo: "/" });
     }]);
 })();

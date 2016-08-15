@@ -16,7 +16,12 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--The async attribute allows the browser to continue rendering the rest of your page while the API loads.-->
     <!-- error messages -->
+    <!-- for gallery of images -->
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.image-gallery/3.1.0/css/bootstrap-image-gallery.css">
+
     <link href="stylesheets/style.css" rel="stylesheet">
+
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVS65ugUiVJys-Z8hZ40a0p0TKr24vE60">
     </script>
@@ -50,6 +55,7 @@
             <li><a href ng-click="ct.scrollTo('direccion')">Dirección <span class="sr-only">(current)</span></a></li>
             <li><a href ng-click="ct.scrollTo('enviarCorreo')">Enviar correo <span class="sr-only">(current)</span></a></li>
             <li><a href ng-click="ct.scrollTo('redesSociales')">Redes Sociales <span class="sr-only">(current)</span></a></li>
+            <li><a ng-href="#!/galeria">Galería de fotos <span class="sr-only">(current)</span></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
            <li><a ng-href="#!/signin">Lista de habitaciones</a></li>
@@ -67,6 +73,9 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <!-- for gallery -->
+    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/bootstrap.image-gallery/3.1.0/js/bootstrap-image-gallery.js"></script>
 
     <script src="angular/src/app.js"></script>
     <script src="angular/src/mainController.js"></script>
