@@ -92,6 +92,71 @@
     </form>
   </div>
   <div class="row">
+    <div class="col-md-12" id="galeria">
+      <br>
+      <br>
+      <br>
+      <center><h1>Galería de fotos</h1></center>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="first" ng-controller="GaleriaController as c" style="list-style-type: none;">
+       <li>
+           <img alt="Música"  src="http://www.hotelpresident.cz/files/hotel-president-prague/bar/hotel-president-prague-piano-bar-017.jpg">
+           <p class="text">Música</p>
+       </li>
+       <li>
+           <img alt="Sala" src="http://www.hotelpresident.com/resources/images/e981a592-0a10-40b7-bdc5-cafcf4be8008/pt/PLI/entrance-best-western-hotel-president-rome.jpg">
+           <p class="text">Sala</p>
+       </li>
+       <li>
+           <img alt="Alberca"  src="http://www.ghpresident.com/foto/strutture/8-_grande-4sorrento_grand_hotel_president_pool_(1).jpg">
+           <p class="text">Alberca</p>
+       </li>
+       <li>
+           <img alt="Habitación1"  src="http://www.voyagesdestination.com/images/hotels/athens/presidenthotel/files/president%204.jpg">
+           <p class="text">Habitación1</p>
+       </li>
+       <li>
+           <img alt="Habitación2"  src="http://images.travelnow.com/hotels/2000000/1640000/1637300/1637285/1637285_10_b.jpg">
+           <p class="text">Habitación2</p>
+       </li>
+       <li>
+           <img alt="Habitación3"  src="https://media-cdn.tripadvisor.com/media/photo-s/06/6a/de/80/president-hotel.jpg">
+           <p class="text">Habitación3</p>
+       </li>
+       <li>
+           <img alt="Baño"  src="http://www.homesluxury.net/wp-content/uploads/2015/02/4-Royal-Penthouse-Suite-President-Wilson-Hotel-Geneva-Switzerland-1.jpg">
+           <p class="text">Baño</p>
+       </li>
+       <li>
+           <img alt="Cena"  src="http://www.hotelpresident.cz/files/hotel-president-prague/restaurant/hotel-president-prague-restaurant-vltava-018.jpg">
+           <p class="text">Cena</p>
+       </li>
+       <li>
+           <img alt="Menú"  src="http://www.hotelpresident-andorra.com/uploads/galeriahoteles/restaurant-hotel-president-jan-hoteles.jpg">
+           <p class="text">Menú</p>
+       </li>
+       <li>
+           <img alt="Bar"  src="http://d2z6mu74zhohgn.cloudfront.net/_php/sfgmin-446471-864-530.jpg">
+           <p class="text">Bar</p>
+       </li>
+       <li>
+           <img alt="Restaurant"  src="http://www.hotelpresident.com/resources/images/b2658f49-3256-48c4-9b4d-b60736a417d1/it/B/ristorante-bw-hotel-president.jpg">
+           <p class="text">Restaurant</p>
+       </li>
+       <li>
+           <img alt="Fachada"  src="https://cdn.mexicodestinos.com/hoteles/hotel-residencial-fachada.jpg">
+           <p class="text">Fachada</p>
+       </li>
+    </ul>
+  </div>
+</div>
+  <div class="row">
     <div class="col-md-12" id="direccion">
       <br>
       <br>
@@ -211,7 +276,9 @@
           <li><strong>Flickr: </strong><a target="_blank" href="https://www.flickr.com/confeccionescolombia/">Galería de fotos</a></li>
           <li><strong>Twitter:</strong><a ng-click="ctrl.scrollTo('foo')">agregar dirección de twitter.</a> </li>
       </ul>
+      <div class="col-md-offset-9 col-md-3">
+        <a   href ng-click="ct.scrollTo('bienvenida')">Regresar al inicio</a>
+      </div>
     </div>
-    <a style="margin-left: 85%;" ng-click="ct.scrollTo('bienvenida')">Regresar al inicio</a>
   </div>
 </div>
