@@ -51,10 +51,12 @@
         <div class="col-md-1">
           <input type="number" name="cuantas" class="form-control" ng-model="ctrl.model.cuantas" id="cuantas">
         </div>
-        <label for="tipo" class="col-md-1 control-label">Sencilla(s)</label>
-          <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="sencilla" id="tipo" style="width:10%;">
-        <label for="tipo" class="col-md-1 control-label">Doble(s)</label>
-          <input type="radio" name="tipo" class="col-md-1 control-label" ng-model="ctrl.model.tipo" value="doble" id="tipo" style="width:10%;">
+        <div class="col-md-2">
+            <input type="radio" name="tipo"  ng-model="ctrl.model.tipo" value="sencilla" id="tipo" style="width:10%;">
+            <label for="tipo" >Sencilla(s)</label>
+            <input type="radio" name="tipo" ng-model="ctrl.model.tipo" value="doble" id="tipo" style="width:10%;">
+            <label for="tipo" >Doble(s)</label>
+        </div>
       </div>
       <div class="form-group">
         <label for="adultos" class="col-md-offset-1 col-md-1 control-label">Adultos : </label>
@@ -192,9 +194,7 @@
     <div class="col-md-6">
       <div ng-controller="ubicacionController as ctrl">
         <div>
-        <strong><a  ng-click="ctrl.calcRoute('DRIVING');">click para ver ruta</a> </strong>
-
-
+        <strong>Click sobre el mapa para trazar una ruta hacia el hotel</strong>
         </div>
         <div id="map" style="width: 70%; height: 400px; background-color: black;"></div>
       </div>
