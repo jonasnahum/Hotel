@@ -44,17 +44,16 @@
           </button>
           <a class="navbar-brand" href="#!/">     Nombre del hotel</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href ng-click="ct.scrollTo('bienvenida')">Bienvenida <span class="sr-only">(current)</span></a></li>
-            <li><a href ng-click="ct.scrollTo('reservaciones')">Reservaciones <span class="sr-only">(current)</span></a></li>
-            <li><a href ng-click="ct.scrollTo('galeria')">Galería de fotos <span class="sr-only">(current)</span></a></li>
-            <li><a href ng-click="ct.scrollTo('direccion')">Dirección <span class="sr-only">(current)</span></a></li>
-            <li><a href ng-click="ct.scrollTo('enviarCorreo')">Enviar correo <span class="sr-only">(current)</span></a></li>
-            <li><a href ng-click="ct.scrollTo('redesSociales')">Redes Sociales <span class="sr-only">(current)</span></a></li>
-            <li><a href="tel:+52-452-165-22-47"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Llamar</a></li>
+            <li ng-class="ct.isActive('bienvenida')?'active':''"><a href ng-click="ct.scrollTo('bienvenida')">Bienvenida <span class="sr-only">(current)</span></a></li>
+            <li ng-class="ct.isActive('reservaciones')?'active':''"><a href ng-click="ct.scrollTo('reservaciones')">Reservaciones <span class="sr-only">(current)</span></a></li>
+            <li ng-class="ct.isActive('galeria')?'active':''"><a href ng-click="ct.scrollTo('galeria')">Galería de fotos <span class="sr-only">(current)</span></a></li>
+            <li ng-class="ct.isActive('direccion')?'active':''"><a href ng-click="ct.scrollTo('direccion')">Dirección <span class="sr-only">(current)</span></a></li>
+            <li ng-class="ct.isActive('enviarCorreo')?'active':''"><a href ng-click="ct.scrollTo('enviarCorreo')">Enviar correo <span class="sr-only">(current)</span></a></li>
+            <li ng-class="ct.isActive('redesSociales')?'active':''"><a href ng-click="ct.scrollTo('redesSociales')">Redes Sociales <span class="sr-only">(current)</span></a></li>
+            <li><a href="tel:+52-452-165-22-47"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>Llamar al hotel</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
            <li><a ng-href="#!/signin">Lista de habitaciones</a></li>
