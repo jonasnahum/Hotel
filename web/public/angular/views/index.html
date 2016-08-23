@@ -2,7 +2,7 @@
   <div class="row" id="bienvenida">
     <div class="col-md-12"  >
        <div >
-         <img src="http://www.hotelpresident.cz/files/cms/sized/files/hotel-president-prague/homepage/hotel-president-prague-lobby-001-1500x1000.jpg"  height="80%" width="100%">
+         <img src="img/portada.jpg"  height="80%" width="100%">
        </div>
   </div>
   <div class="row">
@@ -31,7 +31,7 @@
       <div class="form-group">
         <label for="tel" class="col-md-offset-1 col-md-1 control-label">Teléfono : </label>
         <div class="col-md-2">
-          <input type="text" name="tel" class="form-control" placeholder="4521652247" ng-model="ctrl.model.tel"  ng-minlength="5" ng-maxlength="15" ng-pattern="/^[0-9]+$/" style="width:70%;" required/>
+          <input type="text" name="tel" class="form-control" placeholder="4521652247" ng-model="ctrl.model.tel"  ng-minlength="5" ng-maxlength="15" ng-pattern="/^[0-9]+$/"  required/>
           <div class="errorMessages" ng-messages="frmReg.tel.$error"
                    ng-if="!frmReg.tel.$pristine || frmReg.$submitted" role="alert">
                   <div ng-messages-include="/err/messages.html"></div>
@@ -39,7 +39,7 @@
         </div>
         <label for="correo" class="col-md-1 control-label">Correo : </label>
           <div class="col-md-2">
-            <input type="email" name="correo" class="control-label" placeholder="jonasnahum@gmail.com" ng-model="ctrl.model.correo"  ng-pattern="/^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/" required >
+            <input type="text" name="correo" class="form-control" placeholder="jonasnahum@gmail.com" ng-model="ctrl.model.correo"  ng-pattern="/^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/" required >
             <div class="errorMessages" ng-messages="frmReg.correo.$error"
                      ng-if="!frmReg.correo.$pristine || frmReg.$submitted" role="alert">
                     <div ng-messages-include="/err/messages.html"></div>
@@ -89,9 +89,29 @@
       <div class="form-group">
         <div class="col-md-offset-7 col-md-5">
           <input class="btn btn-lg btn-success" role="button" type="submit"  value="Reservar habitacion" />
+
+
         </div>
       </div>
     </form>
+<!--
+
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="KHHNV3DV6DF2Y">
+                <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+                <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+              </form>
+-->
+<!--
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5EGWLDV4CKXCG">
+<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+</form>
+-->
+
   </div>
   <div class="row">
     <div class="col-md-12" id="galeria">
@@ -107,54 +127,55 @@
   <div class="row">
     <div class="col-md-12">
       <ul class="first" ng-controller="GaleriaController as c" style="list-style-type: none;">
+        <li>
+            <img alt="Living"  src="img/living.jpg">
+            <p class="text">Living</p>
+        </li>
        <li>
-           <img alt="Música"  src="http://www.hotelpresident.cz/files/hotel-president-prague/bar/hotel-president-prague-piano-bar-017.jpg">
+           <img alt="Música"  src="img/musica.jpg">
            <p class="text">Música</p>
        </li>
        <li>
-           <img alt="Sala" src="http://www.hotelpresident.com/resources/images/e981a592-0a10-40b7-bdc5-cafcf4be8008/pt/PLI/entrance-best-western-hotel-president-rome.jpg">
+           <img alt="Sala" src="img/sala.jpg">
            <p class="text">Sala</p>
        </li>
        <li>
-           <img alt="Alberca"  src="http://www.ghpresident.com/foto/strutture/8-_grande-4sorrento_grand_hotel_president_pool_(1).jpg">
+           <img alt="Alberca"  src="img/alberca.jpg">
            <p class="text">Alberca</p>
        </li>
        <li>
-           <img alt="Habitación1"  src="http://www.voyagesdestination.com/images/hotels/athens/presidenthotel/files/president%204.jpg">
+           <img alt="Habitación1"  src="img/habitacion1.jpg">
            <p class="text">Habitación1</p>
        </li>
        <li>
-           <img alt="Habitación2"  src="http://images.travelnow.com/hotels/2000000/1640000/1637300/1637285/1637285_10_b.jpg">
+           <img alt="Habitación2"  src="img/habitacion2.jpg">
            <p class="text">Habitación2</p>
        </li>
        <li>
-           <img alt="Habitación3"  src="https://media-cdn.tripadvisor.com/media/photo-s/06/6a/de/80/president-hotel.jpg">
+           <img alt="Habitación3"  src="img/habitacion3.jpg">
            <p class="text">Habitación3</p>
        </li>
        <li>
-           <img alt="Baño"  src="http://www.homesluxury.net/wp-content/uploads/2015/02/4-Royal-Penthouse-Suite-President-Wilson-Hotel-Geneva-Switzerland-1.jpg">
+           <img alt="Baño"  src="img/baño.jpg">
            <p class="text">Baño</p>
        </li>
        <li>
-           <img alt="Cena"  src="http://www.hotelpresident.cz/files/hotel-president-prague/restaurant/hotel-president-prague-restaurant-vltava-018.jpg">
+           <img alt="Cena"  src="img/cena.jpg">
            <p class="text">Cena</p>
        </li>
        <li>
-           <img alt="Menú"  src="http://www.hotelpresident-andorra.com/uploads/galeriahoteles/restaurant-hotel-president-jan-hoteles.jpg">
+           <img alt="Menú"  src="img/menu.jpg">
            <p class="text">Menú</p>
        </li>
        <li>
-           <img alt="Bar"  src="http://d2z6mu74zhohgn.cloudfront.net/_php/sfgmin-446471-864-530.jpg">
+           <img alt="Bar"  src="img/bar.jpg">
            <p class="text">Bar</p>
        </li>
        <li>
-           <img alt="Restaurant"  src="http://www.hotelpresident.com/resources/images/b2658f49-3256-48c4-9b4d-b60736a417d1/it/B/ristorante-bw-hotel-president.jpg">
+           <img alt="Restaurant"  src="img/restaurant.jpg">
            <p class="text">Restaurant</p>
        </li>
-       <li>
-           <img alt="Fachada"  src="https://cdn.mexicodestinos.com/hoteles/hotel-residencial-fachada.jpg">
-           <p class="text">Fachada</p>
-       </li>
+
     </ul>
   </div>
 </div>
@@ -196,7 +217,7 @@
         <div>
         <strong>Click sobre el mapa para trazar una ruta hacia el hotel</strong>
         </div>
-        <div id="map" style="width: 70%; height: 400px; background-color: black;"></div>
+        <div id="map" style="width: 90%; height: 400px; background-color: black;"></div>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row" style="padding-top: 15px">
   <div class="col-md-offset-1 col-md-10" ng-controller="TodasController as ctrl">
     <h1>Habitaciones y reservaciones</h1>
-    <a class="pull-right" href ng-click="ctrl.logout()">Cerrar mi sesión {{ctrl.emailUsuario}}</a>
+    <a class="pull-right btn btn-danger" href ng-click="ctrl.logout()">Cerrar mi sesión {{ctrl.emailUsuario}}</a>
     <table class="table table-sm">
         <thead>
             <tr>
@@ -30,6 +30,6 @@
 
         </tbody>
     </table>
-    <a style="margin-left: 75%;" ng-href="#!/"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a página principal</a>
+    <a class="btn btn-primary" style="margin-left: 75%;" ng-href="#!/"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a página principal</a>
   </div>
 </div>
