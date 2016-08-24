@@ -3,7 +3,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Área restringida</h1>
-    <p>Sólo personal autorizado.(password = hola)</p>
+    <p>Sólo personal autorizado.( como ejemplo, escriba cualquier correo electrónico y la contraseña es "hola").</p>
     <form class="navbar-form navbar-right" name="frmSignin" ng-submit="frmSignin.$valid && ctrl.signin()"
                     ng-controller="SigninController as ctrl"
                     novalidate>
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="form-group">
-        <input type="password" name="password" placeholder="Password" class="form-control" ng-model="ctrl.password" required>
+        <input type="password" name="password" placeholder="contraseña" class="form-control" ng-model="ctrl.password" required>
         <div class="errorMessages" ng-messages="frmSignin.password.$error" ng-if="!frmSignin.password.$pristine || frmSignin.$submitted" role="alert" >
           <div ng-messages-include="/err/messages.html"></div>
         </div>
