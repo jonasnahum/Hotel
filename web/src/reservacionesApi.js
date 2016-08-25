@@ -58,7 +58,7 @@ var ReservacionesApi = (function() {
         };
         that.config.getConnection(cb);
     };
-    //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-12-21", "fechaSalida": "2016-12-22", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "niños": 2, "tipo": "sencilla", "cuantas": 2 }' http://localhost:3000/reservaciones/api/
+    //curl -i -H "Content-Type: application/json" -d '{ "fechaEntrada": "2016-12-21", "fechaSalida": "2016-12-22", "cliente": "jjonas probando api", "tel": "4521652247", "correo": "jonasapi@gmail.com", "adultos": 2, "ninos": 2, "tipo": "sencilla", "cuantas": 2 }' http://localhost:3000/reservaciones/api/
     ReservacionesApi.prototype.save = function(req, res, next){
       var that = this;
       var cbForHm = function(rows){
@@ -72,7 +72,7 @@ var ReservacionesApi = (function() {
           var nestedArr = [];
           nestedArr = that.hm.takeCuantasFromLibres(rows, req.body.cuantas);
 
-          connection.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, niños)  VALUES ?", [nestedArr], function(err,rows){
+          connection.query("INSERT INTO reservaciones (hab_Id, fechaEntrada, fechaSalida, cliente, tel, correo, adultos, ninos)  VALUES ?", [nestedArr], function(err,rows){
             connection.release();
              if(err) {
                  console.log(err);
