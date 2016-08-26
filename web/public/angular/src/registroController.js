@@ -28,6 +28,12 @@
             fechaSalida : ''
           };
         };
+        ctrl.futuro = function(){
+          if (moment(ctrl.model.fechaEntrada).isAfter(moment(), 'day') || moment(ctrl.model.fechaEntrada).isSame(moment(), 'day')){
+            return true;
+          }
+          return false;
+        };
         ctrl.fechasCongruentes = function(){
           if(ctrl.model.fechaEntrada < ctrl.model.fechaSalida){
             return true;
@@ -35,6 +41,10 @@
           return false;
         };
         ctrl.guardar = function() {
+            if (!ctrl.futuro()){
+              alert("No se puede reservar en fechas pasadas.");
+              return;
+            }
             if (!ctrl.fechasCongruentes()){
               alert("Lo sentimos, parece que las fechas son incongruentes.");
               return;
